@@ -1,13 +1,13 @@
 {
-  "name": "nexus_script_template",
+  "name": "nexus-package-builder",
   "version": "0.0.0",
-  "description": "Template for nexus scripts using typescript",
+  "description": "Tool to create an Iron Realms Nexus native package from individual files",
   "author": "keneanung <keneanung@gmail.com>",
   "license": "MIT",
-  "repository": "git://github.com/keneanung/iron-realms-nexus-script-template.git",
+  "repository": "git://github.com/keneanung/nexus-package-builder.git",
   "main": "lib/index.js",
   "devDependencies": {
-    "@keneanung/iron-realms-nexus-typings": "^0.0.3",
+    "@keneanung/iron-realms-nexus-typings": "^0.1.0",
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
@@ -23,16 +23,10 @@
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
-    "webpack": "^5.59.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.3.1",
     "write-pkg": "^5.0.0"
   },
   "scripts": {
-    "serve": "webpack serve --mode development",
     "build": "tsc",
-    "webpack": "npm test && webpack build --mode development",
-    "webpackProd": "npm test && webpack build --mode production",
     "lint": "eslint . --ext .ts",
     "test": "jest --collect-coverage --config jestconfig.json",
     "watchTest": "jest --collect-coverage --config jestconfig.json --watch",
@@ -41,7 +35,6 @@
     "preversion": "npm test && npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "website": "cd website && npm run start",
     "setup": "node ./setup.mjs"
   },
   "files": [

@@ -35,28 +35,3 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  publish-website:
-      runs-on: ubuntu-latest
-
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-node@v2
-        - name: create javascript assets
-          run: |
-            npm ci
-            npm run webpackProd
-        - name: copy assets to website
-          run: |
-            cp dist/bundle.js website/static
-            cp README.md website/src/pages/index.md
-        - name: build website
-          run: |
-            cd website
-            npm ci
-            npm run build
-        - name: Deploy to GitHub Pages
-          uses: JamesIves/github-pages-deploy-action@4.1.6
-          with:
-            branch: gh-pages
-            folder: website/build
