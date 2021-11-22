@@ -41,5 +41,9 @@
     "lib/**/*",
     "!lib/**/__tests__/*",
     "!lib/webpack/**/*"
-  ]
+  ],
+  "dependencies": {
+    "commander": "^8.3.0"
+  },
+  "bin": "lib/index.js"
 }
