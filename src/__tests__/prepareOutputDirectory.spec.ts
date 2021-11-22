@@ -1,0 +1,62 @@
+import { prepareOutputDirectory } from '../functionsInteractingWithFileSystem';
+import { mocked } from 'ts-jest/utils';
+import * as fs from 'fs';
+
+jest.mock('fs');
+const mockedFs = mocked(fs, true);
+
+beforeEach(() => {
+  mockedFs.existsSync.mockClear();
+  mockedFs.existsSync.mockReturnValue(true);
+  mockedFs.statSync.mockClear();
+  mockedFs.statSync.mockImplementation(() => {
+    const stats = new fs.Stats();
+    stats.isFile = () => false;
+    return stats;
+  });
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
+});
+
+test('Should create output directory if it does not yet exist', () => {
+  mockedFs.existsSync.mockClear();
+  mockedFs.existsSync.mockReturnValue(false);
+
+  prepareOutputDirectory('./output/');
+
+  expect(mockedFs.mkdirSync).toBeCalled();
+});
+
+test('Should return readable error message if output path is a file', () => {
+  mockedFs.statSync.mockClear();
+  mockedFs.statSync.mockImplementation(() => {
+    const stats = new fs.Stats();
+    stats.isFile = () => true;
+    return stats;
+  });
+
+  const { errorMessage } = prepareOutputDirectory('./src/__tests__/testFiles/minimalExample.yaml');
+
+  expect(errorMessage).toMatch(new RegExp('^Output directory .+ is a file\\.$'));
+});
+
+test('Should return false if output path is a file', () => {
+  mockedFs.statSync.mockClear();
+  mockedFs.statSync.mockImplementation(() => {
+    const stats = new fs.Stats();
+    stats.isFile = () => true;
+    return stats;
+  });
+
+  const { result } = prepareOutputDirectory('./src/__tests__/testFiles/minimalExample.yaml');
+
+  expect(result).toBeFalsy();
+});
+
+test('Should run fine if output directory exists', () => {
+  const { result } = prepareOutputDirectory('./output/');
+
+  expect(result).toBeTruthy();
+});

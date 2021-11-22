@@ -1,9 +1,14 @@
-// Library and NPM package entrypoint. Export all publicly visible functions here.
+import { Command } from 'commander';
+import { createPackage } from './foo';
+import { exit } from 'process';
 
-/**
- * Returns a greeting for a given person.
- *
- * @param {string} name The name of the person you want to greet.
- * @returns {string} A greeting for the given person.
- */
-export const Greeter = (name: string): string => `Hello ${name}`;
+const program = new Command();
+program
+  .version('0.0.1')
+  .argument('<package-definition>', 'YAML file with the package definition.')
+  .argument('<output-dir>', 'Output directory');
+
+program.parse();
+
+const result = createPackage(program.args[0], program.args[1]);
+exit(result ? 0 : 1);
