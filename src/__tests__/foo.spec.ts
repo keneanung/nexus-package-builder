@@ -11,13 +11,11 @@ beforeEach(() => {
   mockedFsFunctions.checkPackageDefinitionFile.mockReturnValue({ result: true });
   mockedFsFunctions.prepareOutputDirectory.mockClear();
   mockedFsFunctions.prepareOutputDirectory.mockReturnValue({ result: true });
+  mockedFsFunctions.readPackageDefinitionFile.mockClear();
+  mockedFsFunctions.readPackageDefinitionFile.mockReturnValue({});
   mockedConsole.mockClear();
   //eslint-disable-next-line @typescript-eslint/no-empty-function
   mockedConsole.mockImplementation(() => {});
-});
-
-afterAll(() => {
-  jest.restoreAllMocks();
 });
 
 test('Should return true, if FS functions work', () => {
@@ -66,4 +64,10 @@ test('Should print error message, if output path was wrong somehow', () => {
   createPackage('doesNotMatter.yaml', './doesntEither');
 
   expect(mockedConsole).toBeCalledWith('Some error about package path');
+});
+
+test('Should get the content of the package defintion file', () => {
+  createPackage('doesNotMatter.yaml', './doesntEither');
+
+  expect(mockedFsFunctions.readPackageDefinitionFile).toBeCalledTimes(1);
 });

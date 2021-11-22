@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as yaml from 'js-yaml';
 
 /**
  * Interface for return values of functions in this module.
@@ -40,7 +41,7 @@ export const checkPackageDefinitionFile = (absolutePackageDefinitionPath: string
  * @param {string} absoluteOutputDirPath The (absolute) path of the output directory.
  * @returns {ReturnValue} The result key contains the success of the operation. If false, errorMessage contains an error message.
  */
-export function prepareOutputDirectory(absoluteOutputDirPath: string): ReturnValue {
+export const prepareOutputDirectory = (absoluteOutputDirPath: string): ReturnValue => {
   if (!fs.existsSync(absoluteOutputDirPath)) {
     fs.mkdirSync(absoluteOutputDirPath);
   }
@@ -48,4 +49,15 @@ export function prepareOutputDirectory(absoluteOutputDirPath: string): ReturnVal
     return { result: false, errorMessage: `Output directory '${absoluteOutputDirPath}' is a file.` };
   }
   return { result: true };
-}
+};
+
+/**
+ * Reads the package definition file and returns its content as an object.
+ *
+ * @param {string} absolutePackageDefinitionPath The (absolute) path to the package definition file.
+ * @returns {Partial<client.Package>} A partial package definition.
+ */
+export const readPackageDefinitionFile = (absolutePackageDefinitionPath: string): Partial<client.Package> => {
+  const fileContent = fs.readFileSync(absolutePackageDefinitionPath, 'utf-8');
+  return yaml.load(fileContent) as Partial<client.Package>;
+};

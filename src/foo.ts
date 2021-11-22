@@ -1,5 +1,9 @@
 import * as path from 'path';
-import { checkPackageDefinitionFile, prepareOutputDirectory } from './functionsInteractingWithFileSystem';
+import {
+  checkPackageDefinitionFile,
+  prepareOutputDirectory,
+  readPackageDefinitionFile,
+} from './functionsInteractingWithFileSystem';
 
 /**
  * Creates a Nexus package from the given package definition file and saves it at the given location.
@@ -23,6 +27,8 @@ export const createPackage = (packageDefinition: string, outputDir: string) => {
     console.log(outputDirResult.errorMessage);
     return false;
   }
+
+  const foo = readPackageDefinitionFile(absolutePackageDefinitionPath);
 
   return true;
 };

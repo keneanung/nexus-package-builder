@@ -16,10 +16,6 @@ beforeEach(() => {
   });
 });
 
-afterAll(() => {
-  jest.restoreAllMocks();
-});
-
 test('Should create output directory if it does not yet exist', () => {
   mockedFs.existsSync.mockClear();
   mockedFs.existsSync.mockReturnValue(false);

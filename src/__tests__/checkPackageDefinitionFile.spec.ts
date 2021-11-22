@@ -16,10 +16,6 @@ beforeEach(() => {
   });
 });
 
-afterAll(() => {
-  jest.restoreAllMocks();
-});
-
 test('Should accept existing YAML file just fine', () => {
   const { result } = checkPackageDefinitionFile('./src/__tests__/testFiles/minimalExample.yaml');
 
