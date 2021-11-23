@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
+import { PartialPackage } from './types';
 
 /**
  * Interface for return values of functions in this module.
@@ -55,9 +56,9 @@ export const prepareOutputDirectory = (absoluteOutputDirPath: string): ReturnVal
  * Reads the package definition file and returns its content as an object.
  *
  * @param {string} absolutePackageDefinitionPath The (absolute) path to the package definition file.
- * @returns {Partial<client.Package>} A partial package definition.
+ * @returns {PartialPackage} A partial package definition.
  */
-export const readPackageDefinitionFile = (absolutePackageDefinitionPath: string): Partial<client.Package> => {
+export const readPackageDefinitionFile = (absolutePackageDefinitionPath: string): PartialPackage => {
   const fileContent = fs.readFileSync(absolutePackageDefinitionPath, 'utf-8');
-  return yaml.load(fileContent) as Partial<client.Package>;
+  return yaml.load(fileContent) as PartialPackage;
 };
