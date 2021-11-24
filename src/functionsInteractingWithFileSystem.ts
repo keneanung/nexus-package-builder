@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
+import * as path from 'path';
 import { PartialPackage } from './types';
 
 /**
@@ -61,4 +62,21 @@ export const prepareOutputDirectory = (absoluteOutputDirPath: string): ReturnVal
 export const readPackageDefinitionFile = (absolutePackageDefinitionPath: string): PartialPackage => {
   const fileContent = fs.readFileSync(absolutePackageDefinitionPath, 'utf-8');
   return yaml.load(fileContent) as PartialPackage;
+};
+
+/**
+ * Reads a file relative to a package definition and returns its content.
+ *
+ * @param {string} relativeFilePath The path of the file to read, relative to the package definition file.
+ * @param {string} absolutePackageDefinitionPath The absolute path to the package definition file.
+ * @returns {string} The contents of the given file.
+ */
+export const readScriptFileRelativeToDefintion = (
+  relativeFilePath: string,
+  absolutePackageDefinitionPath: string,
+): string => {
+  const basePath = path.dirname(absolutePackageDefinitionPath);
+  const absoluteFilePath = path.resolve(basePath, relativeFilePath);
+
+  return fs.readFileSync(absoluteFilePath, 'utf-8');
 };
