@@ -2,13 +2,13 @@ import { Package } from '../package';
 import * as utils from '../../utils';
 
 test('Should return a valid package object', () => {
-  const pkg = new Package({});
+  const pkg = new Package({}, '');
 
   expect(pkg).toBeDefined();
 });
 
 test('Should initialize all members', () => {
-  const pkg = new Package({});
+  const pkg = new Package({}, '');
 
   expect(pkg).toMatchObject({
     id: 1,
@@ -23,7 +23,7 @@ test('Should initialize all members', () => {
 test('Should overwrite the name property if given', () => {
   const partialPackage = { name: 'packageName' };
 
-  const pkg = new Package(partialPackage);
+  const pkg = new Package(partialPackage, '');
 
   expect(pkg).toMatchObject({
     name: 'packageName',
@@ -33,7 +33,7 @@ test('Should overwrite the name property if given', () => {
 test('Should overwrite the enabled property if given', () => {
   const partialPackage = { enabled: false };
 
-  const pkg = new Package(partialPackage);
+  const pkg = new Package(partialPackage, '');
 
   expect(pkg).toMatchObject({
     enabled: false,
@@ -43,7 +43,7 @@ test('Should overwrite the enabled property if given', () => {
 test('Should overwrite the description property if given', () => {
   const partialPackage = { description: 'Package description' };
 
-  const pkg = new Package(partialPackage);
+  const pkg = new Package(partialPackage, '');
 
   expect(pkg).toMatchObject({
     description: 'Package description',
@@ -53,7 +53,7 @@ test('Should overwrite the description property if given', () => {
 test('Should keep the id property if given', () => {
   const partialPackage = { id: 255 };
 
-  const pkg = new Package(partialPackage);
+  const pkg = new Package(partialPackage, '');
 
   expect(pkg).toMatchObject({
     id: 1,
@@ -64,7 +64,7 @@ test('Should add a reflex to items if given', () => {
   const mockedFoo = jest.spyOn(utils, 'convertNexusReflexArray');
   const partialPackage = { items: [] };
 
-  new Package(partialPackage);
+  new Package(partialPackage, '');
 
   expect(mockedFoo).toBeCalledTimes(1);
   jest.restoreAllMocks();

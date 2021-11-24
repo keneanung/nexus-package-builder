@@ -17,8 +17,9 @@ export class Package implements client.Package {
    * Constructs a new package instance from a partial definition.
    *
    * @param {PartialPackage} partialPackage Partial package definition. Will be completed with default values.
+   * @param {string} packageDefinitionFile Path to the package definition file.
    */
-  constructor(partialPackage: PartialPackage) {
+  constructor(partialPackage: PartialPackage, packageDefinitionFile: string) {
     this.id = this.idGenerator.getId();
 
     if (partialPackage.name !== undefined) {
@@ -34,7 +35,7 @@ export class Package implements client.Package {
     }
 
     if (partialPackage.items !== undefined) {
-      this.items = convertNexusReflexArray(partialPackage.items, this.idGenerator);
+      this.items = convertNexusReflexArray(partialPackage.items, this.idGenerator, packageDefinitionFile);
     }
   }
 }
