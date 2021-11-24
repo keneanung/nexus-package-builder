@@ -1,6 +1,6 @@
 import { NexusFunction } from './classes/function';
 import { Group } from './classes/group';
-import { PartialGroup, PartialReflex } from './types';
+import { PartialFunction, PartialGroup, PartialReflex } from './types';
 
 /**
  * Generator for IDs.
@@ -16,7 +16,7 @@ export class IdGenerator {
   getId = (): number => ++this.lastId;
 }
 
-const isPartialFunction = (partial: PartialReflex): partial is Partial<client.Function> => {
+const isPartialFunction = (partial: PartialReflex): partial is PartialFunction => {
   return partial.type !== undefined && partial.type === 'function';
 };
 
