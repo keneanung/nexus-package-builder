@@ -61,11 +61,11 @@ test('Should keep the id property if given', () => {
 });
 
 test('Should add a reflex to items if given', () => {
-  const mockedFoo = jest.spyOn(utils, 'convertNexusReflexArray');
+  const mockedConvertFunction = jest.spyOn(utils, 'convertNexusReflexArray');
   const partialPackage = { items: [] };
 
   new Package(partialPackage, '');
 
-  expect(mockedFoo).toBeCalledTimes(1);
+  expect(mockedConvertFunction).toBeCalledTimes(1);
   jest.restoreAllMocks();
 });

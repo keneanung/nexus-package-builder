@@ -1,5 +1,6 @@
 import { NexusFunction } from './classes/function';
-import { PartialReflex } from './types';
+import { Group } from './classes/group';
+import { PartialGroup, PartialReflex } from './types';
 
 /**
  * Generator for IDs.
@@ -17,6 +18,10 @@ export class IdGenerator {
 
 const isPartialFunction = (partial: PartialReflex): partial is Partial<client.Function> => {
   return partial.type !== undefined && partial.type === 'function';
+};
+
+const isPartialGroup = (partial: PartialReflex): partial is PartialGroup => {
+  return partial.type !== undefined && partial.type === 'group';
 };
 
 /**
@@ -37,6 +42,8 @@ export const convertNexusReflexArray = (
     let convertedElement: client.Reflex;
     if (isPartialFunction(element)) {
       convertedElement = new NexusFunction(element, idGenerator, packageDefinitionFile);
+    } else if (isPartialGroup(element)) {
+      convertedElement = new Group(element, idGenerator, packageDefinitionFile);
     } else {
       throw new Error('Unrecognized reflex type. Are you missing the "type" property?');
     }

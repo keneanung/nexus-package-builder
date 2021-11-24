@@ -4,5 +4,6 @@ export type PartialReflex =
   | Partial<client.Event>
   | Partial<client.Function>
   | Partial<client.Keybind>
-  | (Omit<Partial<client.Group>, 'items'> & { items?: PartialReflex[] });
+  | PartialGroup;
+export type PartialGroup = Omit<Partial<client.Group>, 'items'> & { items?: PartialReflex[] };
 export type PartialPackage = Omit<Partial<client.Package>, 'items'> & { items?: PartialReflex[] };
