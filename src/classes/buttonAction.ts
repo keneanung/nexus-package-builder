@@ -1,11 +1,19 @@
-export class ButtonAction implements client.ButtonAction{
-  action: "button" = 'button';
+/**
+ * Class for a nexus button action.
+ */
+export class ButtonAction implements client.ButtonAction {
+  action: 'button' = 'button';
   label = '';
   buttonid = '';
-  buttonaction: "label" | "command" | "highlight" | "unhighlight" | "default" = 'label';
+  buttonaction: 'label' | 'command' | 'highlight' | 'unhighlight' | 'default' = 'label';
   command = '';
 
-  constructor(partialButtonAction: Partial<ButtonAction>){
+  /**
+   * Constructs a new complete button action object from a partial one.
+   * 
+   * @param {Partial<client.ButtonAction>} partialButtonAction A partial button action object.
+   */
+  constructor(partialButtonAction: Partial<client.ButtonAction>) {
     if (partialButtonAction.label !== undefined) {
       this.label = partialButtonAction.label;
     }

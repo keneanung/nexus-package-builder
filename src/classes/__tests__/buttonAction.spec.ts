@@ -8,7 +8,7 @@ test('Should initialize all members', () => {
     label: '',
     buttonid: '',
     buttonaction: 'label',
-    command: ''
+    command: '',
   });
 });
 
