@@ -5,6 +5,7 @@ import { DisablemeAction } from './classes/disablemeAction';
 import { EnableAction } from './classes/enableAction';
 import { NexusFunction } from './classes/function';
 import { FunctionAction } from './classes/functionAction';
+import { GotoAction } from './classes/gotoAction';
 import { Group } from './classes/group';
 import { ScriptAction } from './classes/scriptAction';
 import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
@@ -87,6 +88,10 @@ const isPartialEnableAction = (partialAction: PartialAction): partialAction is P
   return partialAction.action !== undefined && partialAction.action === 'enable';
 };
 
+const isPartialGotoAction = (partialAction: PartialAction): partialAction is Partial<client.GotoAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'goto';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -114,6 +119,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new DisablemeAction();
     } else if (isPartialEnableAction(element)) {
       convertedElement = new EnableAction(element);
+    } else if (isPartialGotoAction(element)) {
+      convertedElement = new GotoAction(element);
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }
