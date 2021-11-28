@@ -3,6 +3,9 @@ import { ScriptAction } from '../classes/scriptAction';
 import { ButtonAction } from '../classes/buttonAction';
 import { PartialScriptAction } from '../types';
 import { convertNexusActionArray } from '../utils';
+import { CommandAction } from '../classes/commandAction';
+import { DisableAction } from '../classes/disableAction';
+import { DisablemeAction } from '../classes/disablemeAction';
 
 test('Should return an empty array on an empty array', () => {
   const result = convertNexusActionArray([], 'definitionFile');
@@ -26,12 +29,36 @@ test('Should return array with a function action if a function action was given'
   expect(result).toContainEqual(new FunctionAction({}));
 });
 
-test('Should return array with a button action if a function action was given', () => {
+test('Should return array with a button action if a button action was given', () => {
   const input: Partial<client.ButtonAction>[] = [{ action: 'button' }];
 
   const result = convertNexusActionArray(input, '');
 
   expect(result).toContainEqual(new ButtonAction({}));
+});
+
+test('Should return array with a command action if a command action was given', () => {
+  const input: Partial<client.CommandAction>[] = [{ action: 'command' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new CommandAction({}));
+});
+
+test('Should return array with a disable action if a disable action was given', () => {
+  const input: Partial<client.DisableAction>[] = [{ action: 'disable' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new DisableAction({}));
+});
+
+test('Should return array with a disableme action if a disableme action was given', () => {
+  const input: Partial<client.DisablemeAction>[] = [{ action: 'disableme' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new DisablemeAction());
 });
 
 test('Should throw an error if no action key is present in an object', () => {
