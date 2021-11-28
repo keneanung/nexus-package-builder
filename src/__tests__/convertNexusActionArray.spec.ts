@@ -6,6 +6,7 @@ import { convertNexusActionArray } from '../utils';
 import { CommandAction } from '../classes/commandAction';
 import { DisableAction } from '../classes/disableAction';
 import { DisablemeAction } from '../classes/disablemeAction';
+import { EnableAction } from '../classes/enableAction';
 
 test('Should return an empty array on an empty array', () => {
   const result = convertNexusActionArray([], 'definitionFile');
@@ -59,6 +60,14 @@ test('Should return array with a disableme action if a disableme action was give
   const result = convertNexusActionArray(input, '');
 
   expect(result).toContainEqual(new DisablemeAction());
+});
+
+test('Should return array with a enable action if a enable action was given', () => {
+  const input: Partial<client.EnableAction>[] = [{ action: 'enable' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new EnableAction({}));
 });
 
 test('Should throw an error if no action key is present in an object', () => {

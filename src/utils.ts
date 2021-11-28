@@ -2,6 +2,7 @@ import { ButtonAction } from './classes/buttonAction';
 import { CommandAction } from './classes/commandAction';
 import { DisableAction } from './classes/disableAction';
 import { DisablemeAction } from './classes/disablemeAction';
+import { EnableAction } from './classes/enableAction';
 import { NexusFunction } from './classes/function';
 import { FunctionAction } from './classes/functionAction';
 import { Group } from './classes/group';
@@ -82,6 +83,10 @@ const isDisablemeAction = (partialAction: PartialAction): partialAction is clien
   return partialAction.action !== undefined && partialAction.action === 'disableme';
 };
 
+const isPartialEnableAction = (partialAction: PartialAction): partialAction is Partial<client.EnableAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'enable';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -107,6 +112,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new DisableAction(element);
     } else if (isDisablemeAction(element)) {
       convertedElement = new DisablemeAction();
+    } else if (isPartialEnableAction(element)) {
+      convertedElement = new EnableAction(element);
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }
