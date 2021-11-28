@@ -9,7 +9,7 @@ test('Should initialize all members', () => {
   });
 });
 
-test('Should overwrite the script property if given', () => {
+test('Should overwrite the label property if given', () => {
   const partialGoto = { label: 'label' };
 
   const goto = new GotoAction(partialGoto);

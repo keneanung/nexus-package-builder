@@ -8,6 +8,7 @@ import { DisableAction } from '../classes/disableAction';
 import { DisablemeAction } from '../classes/disablemeAction';
 import { EnableAction } from '../classes/enableAction';
 import { GotoAction } from '../classes/gotoAction';
+import { IfAction } from '../classes/ifAction';
 
 test('Should return an empty array on an empty array', () => {
   const result = convertNexusActionArray([], 'definitionFile');
@@ -77,6 +78,14 @@ test('Should return array with a goto action if a goto action was given', () => 
   const result = convertNexusActionArray(input, '');
 
   expect(result).toContainEqual(new GotoAction({}));
+});
+
+test('Should return array with a if action if a if action was given', () => {
+  const input: Partial<client.IfAction>[] = [{ action: 'if' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new IfAction({}));
 });
 
 test('Should throw an error if no action key is present in an object', () => {
