@@ -1,6 +1,8 @@
 import { NexusFunction } from './classes/function';
+import { FunctionAction } from './classes/functionAction';
 import { Group } from './classes/group';
-import { PartialFunction, PartialGroup, PartialReflex } from './types';
+import { ScriptAction } from './classes/scriptAction';
+import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
 
 /**
  * Generator for IDs.
@@ -49,5 +51,39 @@ export const convertNexusReflexArray = (
     }
     result.push(convertedElement);
   }
+  return result;
+};
+
+const isPartialScriptAction = (partialAction: PartialAction): partialAction is PartialScriptAction => {
+  return partialAction.action !== undefined && partialAction.action === 'script';
+};
+
+const isPartialFunctionAction = (partialAction: PartialAction): partialAction is Partial<client.FunctionAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'function';
+};
+
+/**
+ * Converts an array of potentially partial actions to an array of complete actions.
+ *
+ * @param {PartialAction[]} actions The array of partial actions to convert.
+ * @param {string} packageDefinitionFile The path to the package definition file.
+ * @returns {client.Action[]} The converted array of (now complete) actions.
+ */
+export const convertNexusActionArray = (actions: PartialAction[], packageDefinitionFile: string) => {
+  const result: client.Action[] = [];
+
+  for (const element of actions) {
+    let convertedElement: client.Action;
+
+    if (isPartialScriptAction(element)) {
+      convertedElement = new ScriptAction(element, packageDefinitionFile);
+    } else if (isPartialFunctionAction(element)) {
+      convertedElement = new FunctionAction(element);
+    } else {
+      throw new Error('Unrecognized action type. Are you missing the "action" property?');
+    }
+    result.push(convertedElement);
+  }
+
   return result;
 };
