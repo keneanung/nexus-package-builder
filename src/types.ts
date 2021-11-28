@@ -13,7 +13,7 @@ export type PartialAction =
   | Partial<client.ButtonAction>
   | Partial<client.CommandAction>
   | Partial<client.DisableAction>
-  | Partial<client.DisablemeAction>
+  | client.DisablemeAction
   | Partial<client.EnableAction>
   | Partial<client.FunctionAction>
   | Partial<client.GotoAction>
