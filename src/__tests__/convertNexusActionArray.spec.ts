@@ -1,5 +1,6 @@
 import { FunctionAction } from '../classes/functionAction';
 import { ScriptAction } from '../classes/scriptAction';
+import { ButtonAction } from '../classes/buttonAction';
 import { PartialScriptAction } from '../types';
 import { convertNexusActionArray } from '../utils';
 
@@ -23,6 +24,14 @@ test('Should return array with a function action if a function action was given'
   const result = convertNexusActionArray(input, '');
 
   expect(result).toContainEqual(new FunctionAction({}));
+});
+
+test('Should return array with a button action if a function action was given', () => {
+  const input: Partial<client.ButtonAction>[] = [{ action: 'button' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new ButtonAction({}));
 });
 
 test('Should throw an error if no action key is present in an object', () => {

@@ -1,3 +1,4 @@
+import { ButtonAction } from './classes/buttonAction';
 import { NexusFunction } from './classes/function';
 import { FunctionAction } from './classes/functionAction';
 import { Group } from './classes/group';
@@ -62,6 +63,10 @@ const isPartialFunctionAction = (partialAction: PartialAction): partialAction is
   return partialAction.action !== undefined && partialAction.action === 'function';
 };
 
+const isPartialButtonAction = (partialAction: PartialAction): partialAction is Partial<client.ButtonAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'button';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -79,6 +84,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new ScriptAction(element, packageDefinitionFile);
     } else if (isPartialFunctionAction(element)) {
       convertedElement = new FunctionAction(element);
+    } else if (isPartialButtonAction(element)) {
+      convertedElement = new ButtonAction(element);
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }
