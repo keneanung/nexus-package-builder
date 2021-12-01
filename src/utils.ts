@@ -10,6 +10,7 @@ import { Group } from './classes/group';
 import { IfAction } from './classes/ifAction';
 import { LabelAction } from './classes/labelAction';
 import { NotificationAction } from './classes/notificationAction';
+import { NotifyAction } from './classes/notifyAction';
 import { ScriptAction } from './classes/scriptAction';
 import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
 
@@ -109,6 +110,10 @@ const isPartialNotificationAction = (
   return partialAction.action !== undefined && partialAction.action === 'notification';
 };
 
+const isPartialNotifyAction = (partialAction: PartialAction): partialAction is Partial<client.NotifyAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'notify';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -144,6 +149,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new LabelAction(element);
     } else if (isPartialNotificationAction(element)) {
       convertedElement = new NotificationAction(element);
+    } else if (isPartialNotifyAction(element)) {
+      convertedElement = new NotifyAction(element);
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }
