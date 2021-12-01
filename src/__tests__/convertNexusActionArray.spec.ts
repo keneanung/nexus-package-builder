@@ -10,6 +10,7 @@ import { EnableAction } from '../classes/enableAction';
 import { GotoAction } from '../classes/gotoAction';
 import { IfAction } from '../classes/ifAction';
 import { LabelAction } from '../classes/labelAction';
+import { NotificationAction } from '../classes/notificationAction';
 
 test('Should return an empty array on an empty array', () => {
   const result = convertNexusActionArray([], 'definitionFile');
@@ -95,6 +96,14 @@ test('Should return array with a label action if a label action was given', () =
   const result = convertNexusActionArray(input, '');
 
   expect(result).toContainEqual(new LabelAction({}));
+});
+
+test('Should return array with a notification action if a notification action was given', () => {
+  const input: Partial<client.NotificationAction>[] = [{ action: 'notification' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new NotificationAction({}));
 });
 
 test('Should throw an error if no action key is present in an object', () => {

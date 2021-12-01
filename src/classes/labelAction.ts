@@ -2,7 +2,7 @@
  * Class for a Nexus label action.
  */
 export class LabelAction implements client.LabelAction {
-  action: "label" = 'label';
+  action: 'label' = 'label';
   label = '';
 
   /**
@@ -10,7 +10,7 @@ export class LabelAction implements client.LabelAction {
    *
    * @param {Partial<client.LabelAction>} partialLabelAction The partial label action to construct a new complete label action from.
    */
-  constructor(partialLabelAction: Partial<client.LabelAction>){
+  constructor(partialLabelAction: Partial<client.LabelAction>) {
     if (partialLabelAction.label !== undefined) {
       this.label = partialLabelAction.label;
     }
