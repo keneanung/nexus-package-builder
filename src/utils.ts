@@ -11,6 +11,7 @@ import { IfAction } from './classes/ifAction';
 import { LabelAction } from './classes/labelAction';
 import { NotificationAction } from './classes/notificationAction';
 import { NotifyAction } from './classes/notifyAction';
+import { RepeatAction } from './classes/repeatAction';
 import { ScriptAction } from './classes/scriptAction';
 import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
 
@@ -114,6 +115,10 @@ const isPartialNotifyAction = (partialAction: PartialAction): partialAction is P
   return partialAction.action !== undefined && partialAction.action === 'notify';
 };
 
+const isPartialRepeatAction = (partialAction: PartialAction): partialAction is Partial<client.RepeatAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'repeat';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -151,6 +156,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new NotificationAction(element);
     } else if (isPartialNotifyAction(element)) {
       convertedElement = new NotifyAction(element);
+    } else if (isPartialRepeatAction(element)) {
+      convertedElement = new RepeatAction(element);
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }
