@@ -13,6 +13,7 @@ import { NotificationAction } from './classes/notificationAction';
 import { NotifyAction } from './classes/notifyAction';
 import { RepeatAction } from './classes/repeatAction';
 import { ScriptAction } from './classes/scriptAction';
+import { SoundAction } from './classes/soundAction';
 import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
 
 /**
@@ -119,6 +120,10 @@ const isPartialRepeatAction = (partialAction: PartialAction): partialAction is P
   return partialAction.action !== undefined && partialAction.action === 'repeat';
 };
 
+const isPartialSoundAction = (partialAction: PartialAction): partialAction is Partial<client.SoundAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'sound';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -158,6 +163,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new NotifyAction(element);
     } else if (isPartialRepeatAction(element)) {
       convertedElement = new RepeatAction(element);
+    } else if (isPartialSoundAction(element)) {
+      convertedElement = new SoundAction(element);
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }

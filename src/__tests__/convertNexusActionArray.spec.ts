@@ -13,6 +13,7 @@ import { LabelAction } from '../classes/labelAction';
 import { NotificationAction } from '../classes/notificationAction';
 import { NotifyAction } from '../classes/notifyAction';
 import { RepeatAction } from '../classes/repeatAction';
+import { SoundAction } from '../classes/soundAction';
 
 test('Should return an empty array on an empty array', () => {
   const result = convertNexusActionArray([], 'definitionFile');
@@ -116,12 +117,20 @@ test('Should return array with a notify action if a notify action was given', ()
   expect(result).toContainEqual(new NotifyAction({}));
 });
 
-test('Should return array with a repeat action if a notify action was given', () => {
+test('Should return array with a repeat action if a repeat action was given', () => {
   const input: Partial<client.RepeatAction>[] = [{ action: 'repeat' }];
 
   const result = convertNexusActionArray(input, '');
 
   expect(result).toContainEqual(new RepeatAction({}));
+});
+
+test('Should return array with a sound action if a notify sound was given', () => {
+  const input: Partial<client.SoundAction>[] = [{ action: 'sound' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new SoundAction({}));
 });
 
 test('Should throw an error if no action key is present in an object', () => {
