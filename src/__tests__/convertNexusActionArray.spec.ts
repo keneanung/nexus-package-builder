@@ -15,6 +15,7 @@ import { NotifyAction } from '../classes/notifyAction';
 import { RepeatAction } from '../classes/repeatAction';
 import { SoundAction } from '../classes/soundAction';
 import { StopAction } from '../classes/stopAction';
+import { VariableAction } from '../classes/variableAction';
 
 test('Should return an empty array on an empty array', () => {
   const result = convertNexusActionArray([], 'definitionFile');
@@ -140,6 +141,14 @@ test('Should return array with a stop action if a stop action was given', () => 
   const result = convertNexusActionArray(input, '');
 
   expect(result).toContainEqual(new StopAction());
+});
+
+test('Should return array with a variable action if a variable action was given', () => {
+  const input: Partial<client.VariableAction>[] = [{ action: 'variable' }];
+
+  const result = convertNexusActionArray(input, '');
+
+  expect(result).toContainEqual(new VariableAction({}));
 });
 
 test('Should throw an error if no action key is present in an object', () => {
