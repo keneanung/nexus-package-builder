@@ -1,3 +1,4 @@
+import { Alias } from './classes/alias';
 import { ButtonAction } from './classes/buttonAction';
 import { CommandAction } from './classes/commandAction';
 import { DisableAction } from './classes/disableAction';
@@ -18,7 +19,14 @@ import { StopAction } from './classes/stopAction';
 import { VariableAction } from './classes/variableAction';
 import { WaitAction } from './classes/waitAction';
 import { WaitForAction } from './classes/waitForAction';
-import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
+import {
+  PartialAction,
+  PartialAlias,
+  PartialFunction,
+  PartialGroup,
+  PartialReflex,
+  PartialScriptAction,
+} from './types';
 
 /**
  * Generator for IDs.
@@ -42,6 +50,10 @@ const isPartialGroup = (partial: PartialReflex): partial is PartialGroup => {
   return partial.type !== undefined && partial.type === 'group';
 };
 
+const isPartialAlias = (partial: PartialReflex): partial is PartialAlias => {
+  return partial.type !== undefined && partial.type === 'alias';
+};
+
 /**
  * Converts an array of potentially partial reflexes to an array of complete reflexes.
  *
@@ -62,6 +74,8 @@ export const convertNexusReflexArray = (
       convertedElement = new NexusFunction(element, idGenerator, packageDefinitionFile);
     } else if (isPartialGroup(element)) {
       convertedElement = new Group(element, idGenerator, packageDefinitionFile);
+    } else if (isPartialAlias(element)) {
+      convertedElement = new Alias(element, idGenerator, packageDefinitionFile);
     } else {
       throw new Error('Unrecognized reflex type. Are you missing the "type" property?');
     }
