@@ -17,6 +17,7 @@ import { SoundAction } from './classes/soundAction';
 import { StopAction } from './classes/stopAction';
 import { VariableAction } from './classes/variableAction';
 import { WaitAction } from './classes/waitAction';
+import { WaitForAction } from './classes/waitForAction';
 import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
 
 /**
@@ -139,6 +140,10 @@ const isPartialWaitAction = (partialAction: PartialAction): partialAction is Par
   return partialAction.action !== undefined && partialAction.action === 'wait';
 };
 
+const isPartialWaitForAction = (partialAction: PartialAction): partialAction is Partial<client.WaitForAction> => {
+  return partialAction.action !== undefined && partialAction.action === 'waitfor';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -186,6 +191,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new VariableAction(element);
     } else if (isPartialWaitAction(element)) {
       convertedElement = new WaitAction(element);
+    } else if (isPartialWaitForAction(element)) {
+      convertedElement = new WaitForAction(element);
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }
