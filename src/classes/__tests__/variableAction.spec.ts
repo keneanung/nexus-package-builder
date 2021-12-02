@@ -7,8 +7,8 @@ test('Should initialize all members', () => {
     action: 'variable',
     varname: '',
     valtype: 'variable',
-value: '',
-op: 'set',
+    value: '',
+    op: 'set',
   });
 });
 
