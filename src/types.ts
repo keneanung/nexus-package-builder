@@ -24,7 +24,7 @@ export type PartialAction =
   | Partial<client.RepeatAction>
   | PartialScriptAction
   | Partial<client.SoundAction>
-  | Partial<client.StopAction>
+  | client.StopAction
   | Partial<client.VariableAction>
   | Partial<client.WaitAction>
   | Partial<client.WaitForAction>;

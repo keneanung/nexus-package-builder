@@ -14,6 +14,7 @@ import { NotifyAction } from './classes/notifyAction';
 import { RepeatAction } from './classes/repeatAction';
 import { ScriptAction } from './classes/scriptAction';
 import { SoundAction } from './classes/soundAction';
+import { StopAction } from './classes/stopAction';
 import { PartialAction, PartialFunction, PartialGroup, PartialReflex, PartialScriptAction } from './types';
 
 /**
@@ -124,6 +125,10 @@ const isPartialSoundAction = (partialAction: PartialAction): partialAction is Pa
   return partialAction.action !== undefined && partialAction.action === 'sound';
 };
 
+const isStopAction = (partialAction: PartialAction): partialAction is client.StopAction => {
+  return partialAction.action !== undefined && partialAction.action === 'stop';
+};
+
 /**
  * Converts an array of potentially partial actions to an array of complete actions.
  *
@@ -165,6 +170,8 @@ export const convertNexusActionArray = (actions: PartialAction[], packageDefinit
       convertedElement = new RepeatAction(element);
     } else if (isPartialSoundAction(element)) {
       convertedElement = new SoundAction(element);
+    } else if (isStopAction(element)) {
+      convertedElement = new StopAction();
     } else {
       throw new Error('Unrecognized action type. Are you missing the "action" property?');
     }
