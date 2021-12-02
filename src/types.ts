@@ -1,13 +1,19 @@
+export type PartialPackage = Omit<Partial<client.Package>, 'items'> & { items?: PartialReflex[] };
+
 export type PartialReflex =
-  | Partial<client.Alias>
-  | Partial<client.Trigger>
-  | Partial<client.Event>
+  | PartialAlias
+  | PartialTrigger
+  | PartialEvent
   | PartialFunction
-  | Partial<client.Keybind>
+  | PartialKeybind
   | PartialGroup;
+
 export type PartialFunction = Partial<client.Function> & { codeFile?: string };
 export type PartialGroup = Omit<Partial<client.Group>, 'items'> & { items?: PartialReflex[] };
-export type PartialPackage = Omit<Partial<client.Package>, 'items'> & { items?: PartialReflex[] };
+export type PartialAlias = Omit<Partial<client.Alias>, 'actions'> & { actions?: PartialAction[] };
+export type PartialTrigger = Omit<Partial<client.Trigger>, 'actions'> & { actions?: PartialAction[] };
+export type PartialEvent = Omit<Partial<client.Event>, 'actions'> & { actions?: PartialAction[] };
+export type PartialKeybind = Omit<Partial<client.Keybind>, 'actions'> & { actions?: PartialAction[] };
 
 export type PartialAction =
   | Partial<client.ButtonAction>
