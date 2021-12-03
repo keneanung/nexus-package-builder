@@ -16,6 +16,7 @@ import { RepeatAction } from './classes/repeatAction';
 import { ScriptAction } from './classes/scriptAction';
 import { SoundAction } from './classes/soundAction';
 import { StopAction } from './classes/stopAction';
+import { Trigger } from './classes/trigger';
 import { VariableAction } from './classes/variableAction';
 import { WaitAction } from './classes/waitAction';
 import { WaitForAction } from './classes/waitForAction';
@@ -26,6 +27,7 @@ import {
   PartialGroup,
   PartialReflex,
   PartialScriptAction,
+  PartialTrigger,
 } from './types';
 
 /**
@@ -54,6 +56,10 @@ const isPartialAlias = (partial: PartialReflex): partial is PartialAlias => {
   return partial.type !== undefined && partial.type === 'alias';
 };
 
+const isPartialTrigger = (partial: PartialReflex): partial is PartialTrigger => {
+  return partial.type !== undefined && partial.type === 'trigger';
+};
+
 /**
  * Converts an array of potentially partial reflexes to an array of complete reflexes.
  *
@@ -76,6 +82,8 @@ export const convertNexusReflexArray = (
       convertedElement = new Group(element, idGenerator, packageDefinitionFile);
     } else if (isPartialAlias(element)) {
       convertedElement = new Alias(element, idGenerator, packageDefinitionFile);
+    } else if (isPartialTrigger(element)) {
+      convertedElement = new Trigger(element, idGenerator, packageDefinitionFile);
     } else {
       throw new Error('Unrecognized reflex type. Are you missing the "type" property?');
     }
