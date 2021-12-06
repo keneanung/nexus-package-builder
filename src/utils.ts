@@ -17,12 +17,14 @@ import { ScriptAction } from './classes/scriptAction';
 import { SoundAction } from './classes/soundAction';
 import { StopAction } from './classes/stopAction';
 import { Trigger } from './classes/trigger';
+import { Event } from './classes/event';
 import { VariableAction } from './classes/variableAction';
 import { WaitAction } from './classes/waitAction';
 import { WaitForAction } from './classes/waitForAction';
 import {
   PartialAction,
   PartialAlias,
+  PartialEvent,
   PartialFunction,
   PartialGroup,
   PartialReflex,
@@ -44,21 +46,20 @@ export class IdGenerator {
   getId = (): number => ++this.lastId;
 }
 
-const isPartialFunction = (partial: PartialReflex): partial is PartialFunction => {
-  return partial.type !== undefined && partial.type === 'function';
-};
+const isPartialFunction = (partial: PartialReflex): partial is PartialFunction =>
+  partial.type !== undefined && partial.type === 'function';
 
-const isPartialGroup = (partial: PartialReflex): partial is PartialGroup => {
-  return partial.type !== undefined && partial.type === 'group';
-};
+const isPartialGroup = (partial: PartialReflex): partial is PartialGroup =>
+  partial.type !== undefined && partial.type === 'group';
 
-const isPartialAlias = (partial: PartialReflex): partial is PartialAlias => {
-  return partial.type !== undefined && partial.type === 'alias';
-};
+const isPartialAlias = (partial: PartialReflex): partial is PartialAlias =>
+  partial.type !== undefined && partial.type === 'alias';
 
-const isPartialTrigger = (partial: PartialReflex): partial is PartialTrigger => {
-  return partial.type !== undefined && partial.type === 'trigger';
-};
+const isPartialTrigger = (partial: PartialReflex): partial is PartialTrigger =>
+  partial.type !== undefined && partial.type === 'trigger';
+
+const isPartialEvent = (partial: PartialReflex): partial is PartialEvent =>
+  partial.type !== undefined && partial.type === 'event';
 
 /**
  * Converts an array of potentially partial reflexes to an array of complete reflexes.
@@ -84,6 +85,8 @@ export const convertNexusReflexArray = (
       convertedElement = new Alias(element, idGenerator, packageDefinitionFile);
     } else if (isPartialTrigger(element)) {
       convertedElement = new Trigger(element, idGenerator, packageDefinitionFile);
+    } else if (isPartialEvent(element)) {
+      convertedElement = new Event(element, idGenerator, packageDefinitionFile);
     } else {
       throw new Error('Unrecognized reflex type. Are you missing the "type" property?');
     }
@@ -92,79 +95,61 @@ export const convertNexusReflexArray = (
   return result;
 };
 
-const isPartialScriptAction = (partialAction: PartialAction): partialAction is PartialScriptAction => {
-  return partialAction.action !== undefined && partialAction.action === 'script';
-};
+const isPartialScriptAction = (partialAction: PartialAction): partialAction is PartialScriptAction =>
+  partialAction.action !== undefined && partialAction.action === 'script';
 
-const isPartialFunctionAction = (partialAction: PartialAction): partialAction is Partial<client.FunctionAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'function';
-};
+const isPartialFunctionAction = (partialAction: PartialAction): partialAction is Partial<client.FunctionAction> =>
+  partialAction.action !== undefined && partialAction.action === 'function';
 
-const isPartialButtonAction = (partialAction: PartialAction): partialAction is Partial<client.ButtonAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'button';
-};
+const isPartialButtonAction = (partialAction: PartialAction): partialAction is Partial<client.ButtonAction> =>
+  partialAction.action !== undefined && partialAction.action === 'button';
 
-const isPartialCommandAction = (partialAction: PartialAction): partialAction is Partial<client.CommandAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'command';
-};
+const isPartialCommandAction = (partialAction: PartialAction): partialAction is Partial<client.CommandAction> =>
+  partialAction.action !== undefined && partialAction.action === 'command';
 
-const isPartialDisableAction = (partialAction: PartialAction): partialAction is Partial<client.DisableAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'disable';
-};
+const isPartialDisableAction = (partialAction: PartialAction): partialAction is Partial<client.DisableAction> =>
+  partialAction.action !== undefined && partialAction.action === 'disable';
 
-const isDisablemeAction = (partialAction: PartialAction): partialAction is client.DisablemeAction => {
-  return partialAction.action !== undefined && partialAction.action === 'disableme';
-};
+const isDisablemeAction = (partialAction: PartialAction): partialAction is client.DisablemeAction =>
+  partialAction.action !== undefined && partialAction.action === 'disableme';
 
-const isPartialEnableAction = (partialAction: PartialAction): partialAction is Partial<client.EnableAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'enable';
-};
+const isPartialEnableAction = (partialAction: PartialAction): partialAction is Partial<client.EnableAction> =>
+  partialAction.action !== undefined && partialAction.action === 'enable';
 
-const isPartialGotoAction = (partialAction: PartialAction): partialAction is Partial<client.GotoAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'goto';
-};
+const isPartialGotoAction = (partialAction: PartialAction): partialAction is Partial<client.GotoAction> =>
+  partialAction.action !== undefined && partialAction.action === 'goto';
 
-const isPartialIfAction = (partialAction: PartialAction): partialAction is Partial<client.IfAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'if';
-};
+const isPartialIfAction = (partialAction: PartialAction): partialAction is Partial<client.IfAction> =>
+  partialAction.action !== undefined && partialAction.action === 'if';
 
-const isPartialLabelAction = (partialAction: PartialAction): partialAction is Partial<client.LabelAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'label';
-};
+const isPartialLabelAction = (partialAction: PartialAction): partialAction is Partial<client.LabelAction> =>
+  partialAction.action !== undefined && partialAction.action === 'label';
 
 const isPartialNotificationAction = (
   partialAction: PartialAction,
-): partialAction is Partial<client.NotificationAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'notification';
-};
+): partialAction is Partial<client.NotificationAction> =>
+  partialAction.action !== undefined && partialAction.action === 'notification';
 
-const isPartialNotifyAction = (partialAction: PartialAction): partialAction is Partial<client.NotifyAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'notify';
-};
+const isPartialNotifyAction = (partialAction: PartialAction): partialAction is Partial<client.NotifyAction> =>
+  partialAction.action !== undefined && partialAction.action === 'notify';
 
-const isPartialRepeatAction = (partialAction: PartialAction): partialAction is Partial<client.RepeatAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'repeat';
-};
+const isPartialRepeatAction = (partialAction: PartialAction): partialAction is Partial<client.RepeatAction> =>
+  partialAction.action !== undefined && partialAction.action === 'repeat';
 
-const isPartialSoundAction = (partialAction: PartialAction): partialAction is Partial<client.SoundAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'sound';
-};
+const isPartialSoundAction = (partialAction: PartialAction): partialAction is Partial<client.SoundAction> =>
+  partialAction.action !== undefined && partialAction.action === 'sound';
 
-const isStopAction = (partialAction: PartialAction): partialAction is client.StopAction => {
-  return partialAction.action !== undefined && partialAction.action === 'stop';
-};
+const isStopAction = (partialAction: PartialAction): partialAction is client.StopAction =>
+  partialAction.action !== undefined && partialAction.action === 'stop';
 
-const isPartialVariableAction = (partialAction: PartialAction): partialAction is Partial<client.VariableAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'variable';
-};
+const isPartialVariableAction = (partialAction: PartialAction): partialAction is Partial<client.VariableAction> =>
+  partialAction.action !== undefined && partialAction.action === 'variable';
 
-const isPartialWaitAction = (partialAction: PartialAction): partialAction is Partial<client.WaitAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'wait';
-};
+const isPartialWaitAction = (partialAction: PartialAction): partialAction is Partial<client.WaitAction> =>
+  partialAction.action !== undefined && partialAction.action === 'wait';
 
-const isPartialWaitForAction = (partialAction: PartialAction): partialAction is Partial<client.WaitForAction> => {
-  return partialAction.action !== undefined && partialAction.action === 'waitfor';
-};
+const isPartialWaitForAction = (partialAction: PartialAction): partialAction is Partial<client.WaitForAction> =>
+  partialAction.action !== undefined && partialAction.action === 'waitfor';
 
 /**
  * Converts an array of potentially partial actions to an array of complete actions.

@@ -2,7 +2,8 @@ import { NexusFunction } from '../classes/function';
 import { Group } from '../classes/group';
 import { Alias } from '../classes/alias';
 import { Trigger } from '../classes/trigger';
-import { PartialAlias, PartialFunction, PartialGroup, PartialTrigger } from '../types';
+import { Event } from '../classes/event';
+import { PartialAlias, PartialEvent, PartialFunction, PartialGroup, PartialTrigger } from '../types';
 import { convertNexusReflexArray, IdGenerator } from '../utils';
 
 test('Should return empty array if given empty array', () => {
@@ -35,12 +36,20 @@ test('Should return array with an alias if given an array with partial alias', (
   expect(result).toContainEqual(new Alias({}, new IdGenerator(), ''));
 });
 
-test('Should return array with an trigger if given an array with partial trigger', () => {
+test('Should return array with a trigger if given an array with partial trigger', () => {
   const input: PartialTrigger[] = [{ type: 'trigger' }];
 
   const result = convertNexusReflexArray(input, new IdGenerator(), '');
 
   expect(result).toContainEqual(new Trigger({}, new IdGenerator(), ''));
+});
+
+test('Should return array with an event if given an array with partial event', () => {
+  const input: PartialEvent[] = [{ type: 'event' }];
+
+  const result = convertNexusReflexArray(input, new IdGenerator(), '');
+
+  expect(result).toContainEqual(new Event({}, new IdGenerator(), ''));
 });
 
 test('Should throw an error if type property is missing', () => {
