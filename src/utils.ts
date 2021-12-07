@@ -27,10 +27,12 @@ import {
   PartialEvent,
   PartialFunction,
   PartialGroup,
+  PartialKeybind,
   PartialReflex,
   PartialScriptAction,
   PartialTrigger,
 } from './types';
+import { Keybind } from './classes/keybind';
 
 /**
  * Generator for IDs.
@@ -61,6 +63,9 @@ const isPartialTrigger = (partial: PartialReflex): partial is PartialTrigger =>
 const isPartialEvent = (partial: PartialReflex): partial is PartialEvent =>
   partial.type !== undefined && partial.type === 'event';
 
+const isPartialKeybind = (partial: PartialReflex): partial is PartialKeybind =>
+  partial.type !== undefined && partial.type === 'keybind';
+
 /**
  * Converts an array of potentially partial reflexes to an array of complete reflexes.
  *
@@ -87,6 +92,8 @@ export const convertNexusReflexArray = (
       convertedElement = new Trigger(element, idGenerator, packageDefinitionFile);
     } else if (isPartialEvent(element)) {
       convertedElement = new Event(element, idGenerator, packageDefinitionFile);
+    } else if (isPartialKeybind(element)) {
+      convertedElement = new Keybind(element, idGenerator, packageDefinitionFile);
     } else {
       throw new Error('Unrecognized reflex type. Are you missing the "type" property?');
     }

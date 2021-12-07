@@ -3,8 +3,9 @@ import { Group } from '../classes/group';
 import { Alias } from '../classes/alias';
 import { Trigger } from '../classes/trigger';
 import { Event } from '../classes/event';
-import { PartialAlias, PartialEvent, PartialFunction, PartialGroup, PartialTrigger } from '../types';
+import { PartialAlias, PartialEvent, PartialFunction, PartialGroup, PartialKeybind, PartialTrigger } from '../types';
 import { convertNexusReflexArray, IdGenerator } from '../utils';
+import { Keybind } from '../classes/keybind';
 
 test('Should return empty array if given empty array', () => {
   const result = convertNexusReflexArray([], new IdGenerator(), '');
@@ -50,6 +51,14 @@ test('Should return array with an event if given an array with partial event', (
   const result = convertNexusReflexArray(input, new IdGenerator(), '');
 
   expect(result).toContainEqual(new Event({}, new IdGenerator(), ''));
+});
+
+test('Should return array with a keybind if given an array with partial keybind', () => {
+  const input: PartialKeybind[] = [{ type: 'keybind' }];
+
+  const result = convertNexusReflexArray(input, new IdGenerator(), '');
+
+  expect(result).toContainEqual(new Keybind({}, new IdGenerator(), ''));
 });
 
 test('Should throw an error if type property is missing', () => {
