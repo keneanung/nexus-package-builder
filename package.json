@@ -40,7 +40,7 @@
   "files": [
     "lib/**/*",
     "!lib/**/__tests__/*",
-    "!lib/webpack/**/*"
+    "resources/**/*"
   ],
   "dependencies": {
     "commander": "^8.3.0",
