@@ -1,5 +1,5 @@
 import { readPackageDefinitionFile } from '../functionsInteractingWithFileSystem';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
