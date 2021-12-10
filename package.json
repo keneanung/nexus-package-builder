@@ -1,5 +1,5 @@
 {
-  "name": "nexus-package-builder",
+  "name": "@keneanung/nexus-package-builder",
   "version": "1.0.1",
   "description": "Tool to create an Iron Realms Nexus native package from individual files",
   "author": "keneanung <keneanung@gmail.com>",
