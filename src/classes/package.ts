@@ -5,7 +5,6 @@ import { convertNexusReflexArray, IdGenerator } from '../utils';
  * Class for a Nexus package.
  */
 export class Package implements client.Package {
-  private readonly idGenerator: IdGenerator = new IdGenerator();
   name = '';
   enabled = true;
   description = '';
@@ -20,7 +19,8 @@ export class Package implements client.Package {
    * @param {string} packageDefinitionFile Path to the package definition file.
    */
   constructor(partialPackage: PartialPackage, packageDefinitionFile: string) {
-    this.id = this.idGenerator.getId();
+    const idGenerator = new IdGenerator();
+    this.id = idGenerator.getId();
 
     if (partialPackage.name !== undefined) {
       this.name = partialPackage.name;
@@ -35,7 +35,7 @@ export class Package implements client.Package {
     }
 
     if (partialPackage.items !== undefined) {
-      this.items = convertNexusReflexArray(partialPackage.items, this.idGenerator, packageDefinitionFile);
+      this.items = convertNexusReflexArray(partialPackage.items, idGenerator, packageDefinitionFile);
     }
   }
 }

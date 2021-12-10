@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils';
 import * as fsFunctions from '../functionsInteractingWithFileSystem';
-import { createPackage } from '../foo';
+import { createPackage } from '../createPackage';
 
 jest.mock('../functionsInteractingWithFileSystem');
 const mockedFsFunctions = mocked(fsFunctions);
@@ -13,6 +13,7 @@ beforeEach(() => {
   mockedFsFunctions.prepareOutputDirectory.mockReturnValue({ result: true });
   mockedFsFunctions.readPackageDefinitionFile.mockClear();
   mockedFsFunctions.readPackageDefinitionFile.mockReturnValue({});
+  mockedFsFunctions.writePackageDefinition.mockClear();
   mockedConsole.mockClear();
   //eslint-disable-next-line @typescript-eslint/no-empty-function
   mockedConsole.mockImplementation(() => {});
@@ -70,4 +71,29 @@ test('Should get the content of the package defintion file', () => {
   createPackage('doesNotMatter.yaml', './doesntEither');
 
   expect(mockedFsFunctions.readPackageDefinitionFile).toBeCalledTimes(1);
+});
+
+test('Should write the JSON version of a package definition to disk', () => {
+  mockedFsFunctions.readPackageDefinitionFile.mockClear();
+  mockedFsFunctions.readPackageDefinitionFile.mockReturnValue({
+    items: [],
+    name: 'some package',
+    description: 'I have a desc too',
+  });
+
+  createPackage('doesNotMatter', './output');
+
+  expect(mockedFsFunctions.writePackageDefinition).toBeCalledWith(
+    '{"name":"some package","enabled":true,"description":"I have a desc too","type":"group","items":[],"id":1}',
+    expect.anything(),
+  );
+});
+
+test('Should tell the write function to correct place to write the package to', () => {
+  createPackage('./input.yaml', './packagePath');
+
+  expect(mockedFsFunctions.writePackageDefinition).toBeCalledWith(
+    expect.anything(),
+    expect.stringMatching(new RegExp('/packagePath/input.nxs$')),
+  );
 });

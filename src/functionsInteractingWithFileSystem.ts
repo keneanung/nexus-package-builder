@@ -80,3 +80,13 @@ export const readScriptFileRelativeToDefintion = (
 
   return fs.readFileSync(absoluteFilePath, 'utf-8');
 };
+
+/**
+ * Writes the given content to the given file path to disk.
+ *
+ * @param {string} jsonContent The JSON document (string) to write to disk.
+ * @param {string} outputPath The file name to write the content to.
+ */
+export const writePackageDefinition = (jsonContent: string, outputPath: string) => {
+  fs.writeFileSync(outputPath, jsonContent);
+};

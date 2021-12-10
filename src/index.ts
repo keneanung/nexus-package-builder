@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { createPackage } from './foo';
+import { createPackage } from './createPackage';
 import { exit } from 'process';
 
 const program = new Command();

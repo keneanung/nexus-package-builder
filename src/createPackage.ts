@@ -1,8 +1,10 @@
 import * as path from 'path';
+import { Package } from './classes/package';
 import {
   checkPackageDefinitionFile,
   prepareOutputDirectory,
   readPackageDefinitionFile,
+  writePackageDefinition,
 } from './functionsInteractingWithFileSystem';
 
 /**
@@ -28,7 +30,14 @@ export const createPackage = (packageDefinition: string, outputDir: string) => {
     return false;
   }
 
-  const foo = readPackageDefinitionFile(absolutePackageDefinitionPath);
+  const packageDefinitionContent = readPackageDefinitionFile(absolutePackageDefinitionPath);
+  const completePackageDefinition = new Package(packageDefinitionContent, absoluteOutputDirPath);
+
+  const outputFileNameWithoutExtension = path.basename(absolutePackageDefinitionPath, '.yaml');
+  const absoluteOutputFile = path.resolve(absoluteOutputDirPath, `${outputFileNameWithoutExtension}.nxs`);
+
+  const jsonPackageDefinition = JSON.stringify(completePackageDefinition);
+  writePackageDefinition(jsonPackageDefinition, absoluteOutputFile);
 
   return true;
 };
