@@ -105,8 +105,5 @@ test('Should tell the write function to correct place to write the package to', 
 test('Should create a new package with the correct package definition file path', () => {
   createPackage('./input.yaml', './packagePath');
 
-  expect(mockedPackageConstructor).toBeCalledWith(
-    expect.anything(),
-    expect.stringMatching(new RegExp('/input.yaml$')),
-  );
+  expect(mockedPackageConstructor).toBeCalledWith(expect.anything(), expect.stringMatching(new RegExp('/input.yaml$')));
 });
