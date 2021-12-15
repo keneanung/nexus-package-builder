@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import { createPackage } from './createPackage';
 import { exit } from 'process';
