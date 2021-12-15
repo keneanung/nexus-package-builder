@@ -31,7 +31,7 @@ export const createPackage = (packageDefinition: string, outputDir: string) => {
   }
 
   const packageDefinitionContent = readPackageDefinitionFile(absolutePackageDefinitionPath);
-  const completePackageDefinition = new Package(packageDefinitionContent, absoluteOutputDirPath);
+  const completePackageDefinition = new Package(packageDefinitionContent, absolutePackageDefinitionPath);
 
   const outputFileNameWithoutExtension = path.basename(absolutePackageDefinitionPath, '.yaml');
   const absoluteOutputFile = path.resolve(absoluteOutputDirPath, `${outputFileNameWithoutExtension}.nxs`);

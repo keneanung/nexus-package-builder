@@ -1,10 +1,13 @@
 import { mocked } from 'jest-mock';
 import * as fsFunctions from '../functionsInteractingWithFileSystem';
 import { createPackage } from '../createPackage';
+import * as PackageClass from '../classes/package';
 
 jest.mock('../functionsInteractingWithFileSystem');
 const mockedFsFunctions = mocked(fsFunctions);
 const mockedConsole = jest.spyOn(global.console, 'log');
+
+const mockedPackageConstructor = jest.spyOn(PackageClass, 'Package');
 
 beforeEach(() => {
   mockedFsFunctions.checkPackageDefinitionFile.mockClear();
@@ -17,6 +20,7 @@ beforeEach(() => {
   mockedConsole.mockClear();
   //eslint-disable-next-line @typescript-eslint/no-empty-function
   mockedConsole.mockImplementation(() => {});
+  mockedPackageConstructor.mockClear();
 });
 
 test('Should return true, if FS functions work', () => {
@@ -95,5 +99,14 @@ test('Should tell the write function to correct place to write the package to', 
   expect(mockedFsFunctions.writePackageDefinition).toBeCalledWith(
     expect.anything(),
     expect.stringMatching(new RegExp('/packagePath/input.nxs$')),
+  );
+});
+
+test('Should create a new package with the correct package definition file path', () => {
+  createPackage('./input.yaml', './packagePath');
+
+  expect(mockedPackageConstructor).toBeCalledWith(
+    expect.anything(),
+    expect.stringMatching(new RegExp('/input.yaml$')),
   );
 });
