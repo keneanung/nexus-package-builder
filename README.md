@@ -30,6 +30,7 @@ This is a sample yaml file with all fields:
 
 <details>
 <summary>Click here for sample yaml</summary>
+
 ```yaml
 # yaml-language-server: $schema=./resources/nexus-schema.json
 name: Package Name
@@ -159,6 +160,7 @@ items:
     actions:
       # list of actions to run, see the alias
 ```
+
 </details>
 
 To ease the editing of `yaml` files, this package also includes a yaml schema file. Some editors can include it with the following comment at the top of the file:
