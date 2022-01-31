@@ -43,7 +43,7 @@
     "resources/**/*"
   ],
   "dependencies": {
-    "commander": "^8.3.0",
+    "commander": "^9.0.0",
     "js-yaml": "^4.1.0"
   },
   "bin": "lib/index.js"
