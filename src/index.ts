@@ -2,10 +2,11 @@
 import { Command } from 'commander';
 import { createPackage } from './createPackage';
 import { exit } from 'process';
+import * as getPackageVersion from '@jsbits/get-package-version'
 
 const program = new Command();
 program
-  .version('0.0.1')
+  .version(getPackageVersion())
   .argument('<package-definition>', 'YAML file with the package definition.')
   .argument('<output-dir>', 'Output directory');
 
