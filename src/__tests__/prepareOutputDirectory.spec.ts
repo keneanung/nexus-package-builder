@@ -9,11 +9,9 @@ beforeEach(() => {
   mockedFs.existsSync.mockClear();
   mockedFs.existsSync.mockReturnValue(true);
   mockedFs.statSync.mockClear();
-  mockedFs.statSync.mockImplementation(() => {
-    const stats = new fs.Stats();
-    stats.isFile = () => false;
-    return stats;
-  });
+  const stats = new fs.Stats();
+  stats.isFile = () => false;
+  mockedFs.statSync.mockReturnValue(stats);
 });
 
 test('Should create output directory if it does not yet exist', () => {
@@ -27,11 +25,9 @@ test('Should create output directory if it does not yet exist', () => {
 
 test('Should return readable error message if output path is a file', () => {
   mockedFs.statSync.mockClear();
-  mockedFs.statSync.mockImplementation(() => {
-    const stats = new fs.Stats();
-    stats.isFile = () => true;
-    return stats;
-  });
+  const stats = new fs.Stats();
+  stats.isFile = () => true;
+  mockedFs.statSync.mockReturnValue(stats);
 
   const { errorMessage } = prepareOutputDirectory('./src/__tests__/testFiles/minimalExample.yaml');
 
@@ -40,11 +36,9 @@ test('Should return readable error message if output path is a file', () => {
 
 test('Should return false if output path is a file', () => {
   mockedFs.statSync.mockClear();
-  mockedFs.statSync.mockImplementation(() => {
-    const stats = new fs.Stats();
-    stats.isFile = () => true;
-    return stats;
-  });
+  const stats = new fs.Stats();
+  stats.isFile = () => true;
+  mockedFs.statSync.mockReturnValue(stats);
 
   const { result } = prepareOutputDirectory('./src/__tests__/testFiles/minimalExample.yaml');
 
