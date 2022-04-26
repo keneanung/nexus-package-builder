@@ -9,11 +9,9 @@ beforeEach(() => {
   mockedFs.existsSync.mockClear();
   mockedFs.existsSync.mockReturnValue(true);
   mockedFs.statSync.mockClear();
-  mockedFs.statSync.mockImplementation(() => {
-    const stats = new fs.Stats();
-    stats.isFile = () => true;
-    return stats;
-  });
+  const stats = new fs.Stats();
+  stats.isFile = () => true;
+  mockedFs.statSync.mockReturnValue(stats);
 });
 
 test('Should accept existing YAML file just fine', () => {
@@ -42,11 +40,9 @@ test('Should return false if input file does not exist', () => {
 
 test('Should return an error if given path is a directory', () => {
   mockedFs.statSync.mockClear();
-  mockedFs.statSync.mockImplementation(() => {
-    const stats = new fs.Stats();
-    stats.isFile = () => false;
-    return stats;
-  });
+  const stats = new fs.Stats();
+  stats.isFile = () => false;
+  mockedFs.statSync.mockReturnValue(stats);
 
   const { errorMessage } = checkPackageDefinitionFile('./src/');
 
@@ -55,11 +51,9 @@ test('Should return an error if given path is a directory', () => {
 
 test('Should return false if given path is a directory', () => {
   mockedFs.statSync.mockClear();
-  mockedFs.statSync.mockImplementation(() => {
-    const stats = new fs.Stats();
-    stats.isFile = () => false;
-    return stats;
-  });
+  const stats = new fs.Stats();
+  stats.isFile = () => false;
+  mockedFs.statSync.mockReturnValue(stats);
 
   const { result } = checkPackageDefinitionFile('./src/');
 
