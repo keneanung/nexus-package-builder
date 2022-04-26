@@ -19,6 +19,7 @@
     "eslint-plugin-jsdoc": "^39.2.5",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.4",
+    "jest-github-reporter": "^1.0.2",
     "jest-mock": "^28.0.0",
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.1",
@@ -28,7 +29,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest --collect-coverage --config jestconfig.json",
+    "test": "jest --testLocationInResults --collect-coverage --config jestconfig.json",
     "watchTest": "jest --collect-coverage --config jestconfig.json --watch",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.ts\"",
     "prepublishOnly": "npm test && npm run lint && npm run build",
