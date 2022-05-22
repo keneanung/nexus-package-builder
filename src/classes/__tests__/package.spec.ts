@@ -62,19 +62,33 @@ test('Should overwrite the version property if given', () => {
   });
 });
 
+test('Should overwrite the version property if given via constructor argument', () => {
+  const partialPackage = {};
+
+  const pkg = new Package(partialPackage, '', '1.2.3');
+
+  expect(pkg).toMatchObject({
+    version: '1.2.3',
+  });
+});
+
+test('Should use the constructor version argument for the version property if given via constructor argument and package definition', () => {
+  const partialPackage = { version: '1.0.0' };
+
+  const pkg = new Package(partialPackage, '', '1.2.3');
+
+  expect(pkg).toMatchObject({
+    version: '1.2.3',
+  });
+});
+
 test('Should overwrite the dependencies property if given', () => {
-  const partialPackage = { dependencies: [
-    "foo",
-    "bar",
-  ] };
+  const partialPackage = { dependencies: ['foo', 'bar'] };
 
   const pkg = new Package(partialPackage, '');
 
   expect(pkg).toMatchObject({
-    dependencies: [
-      "foo",
-      "bar",
-    ],
+    dependencies: ['foo', 'bar'],
   });
 });
 

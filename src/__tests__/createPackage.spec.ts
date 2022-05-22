@@ -93,6 +93,22 @@ test('Should write the JSON version of a package definition to disk', () => {
   );
 });
 
+test('Should contain given version in the output to disk', () => {
+  mockedFsFunctions.readPackageDefinitionFile.mockClear();
+  mockedFsFunctions.readPackageDefinitionFile.mockReturnValue({
+    items: [],
+    name: 'some package',
+    description: 'I have a desc too',
+  });
+
+  createPackage('doesNotMatter', './output', '1.2.3');
+
+  expect(mockedFsFunctions.writePackageDefinition).toHaveBeenCalledWith(
+    expect.stringContaining('"version":"1.2.3"'),
+    expect.anything(),
+  );
+});
+
 test('Should tell the write function to correct place to write the package to', () => {
   createPackage('./input.yaml', './packagePath');
 
@@ -105,5 +121,9 @@ test('Should tell the write function to correct place to write the package to', 
 test('Should create a new package with the correct package definition file path', () => {
   createPackage('./input.yaml', './packagePath');
 
-  expect(mockedPackageConstructor).toBeCalledWith(expect.anything(), expect.stringMatching(new RegExp('/input.yaml$')));
+  expect(mockedPackageConstructor).toBeCalledWith(
+    expect.anything(),
+    expect.stringMatching(new RegExp('/input.yaml$')),
+    undefined,
+  );
 });

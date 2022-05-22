@@ -19,8 +19,9 @@ export class Package implements client.Package {
    *
    * @param {PartialPackage} partialPackage Partial package definition. Will be completed with default values.
    * @param {string} packageDefinitionFile Path to the package definition file.
+   * @param {string|undefined} packageVersion Version of the package. Overrides any value inside the partial package definition.
    */
-  constructor(partialPackage: PartialPackage, packageDefinitionFile: string) {
+  constructor(partialPackage: PartialPackage, packageDefinitionFile: string, packageVersion?: string) {
     const idGenerator = new IdGenerator();
     this.id = idGenerator.getId();
 
@@ -36,11 +37,13 @@ export class Package implements client.Package {
       this.description = partialPackage.description;
     }
 
-    if(partialPackage.version !== undefined){
+    if (packageVersion !== undefined) {
+      this.version = packageVersion;
+    } else if (partialPackage.version !== undefined) {
       this.version = partialPackage.version;
     }
 
-    if(partialPackage.dependencies !== undefined){
+    if (partialPackage.dependencies !== undefined) {
       this.dependencies = partialPackage.dependencies;
     }
 

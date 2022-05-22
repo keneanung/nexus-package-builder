@@ -1,4 +1,7 @@
-export type PartialPackage = Omit<Partial<client.Package>, 'items'> & { items?: PartialReflex[] } & { version?: string, dependencies?: string[] };
+export type PartialPackage = Omit<Partial<client.Package>, 'items'> & { items?: PartialReflex[] } & {
+  version?: string;
+  dependencies?: string[];
+};
 
 export type PartialReflex =
   | PartialAlias

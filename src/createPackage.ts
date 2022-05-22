@@ -12,9 +12,10 @@ import {
  *
  * @param {string} packageDefinition Path to the package definition file
  * @param {string} outputDir Output directory of the nexus package
+ * @param {string|undefined} packageVersion Version of the package. Will override any values in the package definition file
  * @returns {boolean} THe success status of the operation: on success true, otherwise false.
  */
-export const createPackage = (packageDefinition: string, outputDir: string) => {
+export const createPackage = (packageDefinition: string, outputDir: string, packageVersion?: string) => {
   const absolutePackageDefinitionPath = path.resolve(packageDefinition);
   const absoluteOutputDirPath = path.resolve(outputDir);
 
@@ -31,7 +32,11 @@ export const createPackage = (packageDefinition: string, outputDir: string) => {
   }
 
   const packageDefinitionContent = readPackageDefinitionFile(absolutePackageDefinitionPath);
-  const completePackageDefinition = new Package(packageDefinitionContent, absolutePackageDefinitionPath);
+  const completePackageDefinition = new Package(
+    packageDefinitionContent,
+    absolutePackageDefinitionPath,
+    packageVersion,
+  );
 
   const outputFileNameWithoutExtension = path.basename(absolutePackageDefinitionPath, '.yaml');
   const absoluteOutputFile = path.resolve(absoluteOutputDirPath, `${outputFileNameWithoutExtension}.nxs`);
