@@ -1,37 +1,3 @@
-# Package builder for Iron Realms Nexus #
-
-This project is a package builder inspired by and similar in function to [`muddler`](https://github.com/demonnic/muddler) for Mudlet. It takes a package definition file that's better suited for humans than the original format and files that can be edited separately as input and creates a package file for the Nexus MUD client of Iron Realms.
-
-## Usage ##
-
-### Installation ###
-
-```bash
-npm install @keneanung/nexus-package-builder
-```
-
-### Running the tool ###
-
-```bash
-npx nexus-package-builder <package-definition.yaml> <output-dir>
-```
-
-Example:
-
-```bash
-npx nexus-package-builder input.yaml ./output
-```
-
-This command will convert the `yaml` file `input.yaml` to the package file `./output/input.nxs`.
-
-## The yaml file schema ##
-
-This is a sample yaml file with all fields:
-
-<details>
-<summary>Click here for sample yaml</summary>
-
-```yaml
 # yaml-language-server: $schema=./resources/nexus-schema.json
 name: Package Name
 description: This is the package description
@@ -163,16 +129,8 @@ items:
     whole_words: true
     actions:
       # list of actions to run, see the alias
-```
 
-</details>
 
-To ease the editing of `yaml` files, this package also includes a yaml schema file. Some editors can include it with the following comment at the top of the file:
 
-```yaml
-# yaml-language-server: $schema=.node_modules/@keneanung/nexus-package-builder/resources/nexus-schema.json
-```
 
-The only mandatory values for each item are `type` for reflexes and `action` for actions as those distinguish which fields are allowed. Default values will be used for missing fields.
 
-**NOTE** You should not use most actions as they are part of the `simplified scripting`. If you are already writing code complex enough to warrant the use of external code files, stick to the actions `script` and possibly `function`.

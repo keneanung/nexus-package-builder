@@ -17,6 +17,8 @@ test('Should initialize all members', () => {
     enabled: true,
     description: '',
     items: [],
+    version: '',
+    dependencies: [],
   });
 });
 
@@ -47,6 +49,32 @@ test('Should overwrite the description property if given', () => {
 
   expect(pkg).toMatchObject({
     description: 'Package description',
+  });
+});
+
+test('Should overwrite the version property if given', () => {
+  const partialPackage = { version: '1.0.0' };
+
+  const pkg = new Package(partialPackage, '');
+
+  expect(pkg).toMatchObject({
+    version: '1.0.0',
+  });
+});
+
+test('Should overwrite the dependencies property if given', () => {
+  const partialPackage = { dependencies: [
+    "foo",
+    "bar",
+  ] };
+
+  const pkg = new Package(partialPackage, '');
+
+  expect(pkg).toMatchObject({
+    dependencies: [
+      "foo",
+      "bar",
+    ],
   });
 });
 

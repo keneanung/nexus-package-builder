@@ -26,6 +26,15 @@
         "id": {
           "type": "integer"
         },
+        "version": {
+          "type": "string"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "items": {
           "$ref": "#/$defs/items"
         }
