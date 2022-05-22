@@ -13,13 +13,17 @@ npm install @keneanung/nexus-package-builder
 ### Running the tool ###
 
 ```bash
-npx nexus-package-builder <package-definition.yaml> <output-dir>
+npx nexus-package-builder [-v <version>] <package-definition.yaml> <output-dir>
 ```
 
-Example:
+Examples:
 
 ```bash
 npx nexus-package-builder input.yaml ./output
+```
+
+```bash
+npx nexus-package-builder -v 1.2.0 input.yaml ./output
 ```
 
 This command will convert the `yaml` file `input.yaml` to the package file `./output/input.nxs`.
