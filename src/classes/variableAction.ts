@@ -2,7 +2,7 @@
  * Class for the Nexus variable action
  */
 export class VariableAction implements client.VariableAction {
-  action: 'variable' = 'variable';
+  action = 'variable' as const;
   varname = '';
   valtype: 'variable' | 'target' | 'value' = 'variable';
   value = '';

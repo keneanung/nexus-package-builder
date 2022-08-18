@@ -2,7 +2,7 @@
  * Class for a Nexus notify action.
  */
 export class NotifyAction implements client.NotifyAction {
-  action: 'notify' = 'notify';
+  action = 'notify' as const;
   notice = '';
   notice_fg = '';
   notice_bg = '';

@@ -7,7 +7,7 @@ import { convertNexusReflexArray, IdGenerator } from '../utils';
 export class Group implements client.Group {
   name = '';
   id = 0;
-  type: 'group' = 'group';
+  type = 'group' as const;
   enabled = true;
   items: client.Reflex[] = [];
 

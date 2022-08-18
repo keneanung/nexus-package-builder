@@ -7,7 +7,7 @@ import { convertNexusActionArray, IdGenerator } from '../utils';
 export class Keybind implements client.Keybind {
   name = '';
   id: number;
-  type: 'keybind' = 'keybind';
+  type = 'keybind' as const;
   enabled = true;
   key = 0;
   key_alt = false;

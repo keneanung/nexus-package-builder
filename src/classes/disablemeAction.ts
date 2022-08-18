@@ -2,5 +2,5 @@
  * Class for the disableme action.
  */
 export class DisablemeAction implements client.DisablemeAction {
-  action: 'disableme' = 'disableme';
+  action = 'disableme' as const;
 }

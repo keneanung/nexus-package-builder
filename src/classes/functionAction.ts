@@ -2,7 +2,7 @@
  * Class for a nexus function action.
  */
 export class FunctionAction implements client.FunctionAction {
-  action: 'function' = 'function';
+  action = 'function' as const;
   fn = '';
 
   /**

@@ -2,7 +2,7 @@
  * Class for a Nexus repeat action
  */
 export class RepeatAction implements client.RepeatAction {
-  action: 'repeat' = 'repeat';
+  action = 'repeat' as const;
   'cond-type1': 'variable' | 'target' | 'value' = 'variable';
   'cond-val1' = '';
   'cond-type2': 'variable' | 'target' | 'value' = 'variable';

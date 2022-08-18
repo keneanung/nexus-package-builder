@@ -2,7 +2,7 @@
  * Class for nexus command actions.
  */
 export class CommandAction implements client.CommandAction {
-  action: 'command' = 'command';
+  action = 'command' as const;
   command = '';
   prefix_suffix = true;
 

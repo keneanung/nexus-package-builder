@@ -2,7 +2,7 @@
  * Class for Nexus disable action.
  */
 export class DisableAction implements client.DisableAction {
-  action: 'disable' = 'disable';
+  action = 'disable' as const;
   type: 'group' | 'alias' | 'trigger' | 'keybind' | 'event' = 'group';
   name = '';
 

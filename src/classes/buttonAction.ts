@@ -2,7 +2,7 @@
  * Class for a nexus button action.
  */
 export class ButtonAction implements client.ButtonAction {
-  action: 'button' = 'button';
+  action = 'button' as const;
   label = '';
   buttonid = '';
   buttonaction: 'label' | 'command' | 'highlight' | 'unhighlight' | 'default' = 'label';

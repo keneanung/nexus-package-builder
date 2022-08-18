@@ -2,7 +2,7 @@
  * Class for a Nexus notification action
  */
 export class NotificationAction implements client.NotificationAction {
-  action: 'notification' = 'notification';
+  action = 'notification' as const;
   heading = '';
   text = '';
 

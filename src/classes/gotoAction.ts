@@ -2,7 +2,7 @@
  * Class for nexus goto actions
  */
 export class GotoAction implements client.GotoAction {
-  action: 'goto' = 'goto';
+  action = 'goto' as const;
   label = '';
 
   /**

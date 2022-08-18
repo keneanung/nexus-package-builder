@@ -2,7 +2,7 @@
  * Class for the Nexus wait action
  */
 export class WaitAction implements client.WaitAction {
-  action: 'wait' = 'wait';
+  action = 'wait' as const;
   seconds = '';
   milliseconds = '';
 

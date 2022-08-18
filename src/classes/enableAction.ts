@@ -2,7 +2,7 @@
  * Class for Nexus enable action.
  */
 export class EnableAction implements client.EnableAction {
-  action: 'enable' = 'enable';
+  action = 'enable' as const;
   type: 'group' | 'alias' | 'trigger' | 'keybind' | 'event' = 'group';
   name = '';
 

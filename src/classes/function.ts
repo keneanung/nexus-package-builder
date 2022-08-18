@@ -8,7 +8,7 @@ import { IdGenerator } from '../utils';
 export class NexusFunction implements client.Function {
   name = '';
   id = 0;
-  type: 'function' = 'function';
+  type = 'function' as const;
   enabled = true;
   code = '';
 

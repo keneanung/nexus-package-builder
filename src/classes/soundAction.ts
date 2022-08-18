@@ -2,7 +2,7 @@
  * Class for a NExus sound action
  */
 export class SoundAction implements client.SoundAction {
-  action: 'sound' = 'sound';
+  action = 'sound' as const;
   sound = '';
 
   /**

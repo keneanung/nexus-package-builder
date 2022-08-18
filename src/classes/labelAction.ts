@@ -2,7 +2,7 @@
  * Class for a Nexus label action.
  */
 export class LabelAction implements client.LabelAction {
-  action: 'label' = 'label';
+  action = 'label' as const;
   label = '';
 
   /**

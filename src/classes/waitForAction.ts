@@ -2,7 +2,7 @@
  * Class for the Nexus waitFor action
  */
 export class WaitForAction implements client.WaitForAction {
-  action: 'waitfor' = 'waitfor';
+  action = 'waitfor' as const;
   text = '';
   matching: 'substring' | 'begins' | 'regexp' | 'exact' = 'substring';
   whole_words = true;

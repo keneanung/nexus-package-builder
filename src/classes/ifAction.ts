@@ -2,7 +2,7 @@
  * Class for nexus if actions
  */
 export class IfAction implements client.IfAction {
-  action: 'if' = 'if';
+  action = 'if' as const;
   'cond-type1': 'variable' | 'target' | 'value' = 'variable';
   'cond-val1' = '';
   'cond-type2': 'variable' | 'target' | 'value' = 'variable';

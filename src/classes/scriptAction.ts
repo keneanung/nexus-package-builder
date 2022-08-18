@@ -5,7 +5,7 @@ import { PartialScriptAction } from '../types';
  * Class for a Nexus script action.
  */
 export class ScriptAction implements client.ScriptAction {
-  action: 'script' = 'script';
+  action = 'script' as const;
   script = '';
 
   /**

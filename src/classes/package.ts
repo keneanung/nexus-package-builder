@@ -8,7 +8,7 @@ export class Package implements client.Package {
   name = '';
   enabled = true;
   description = '';
-  type: 'group' = 'group';
+  type = 'group' as const;
   id: number;
   items: client.Reflex[] = [];
   version = '';

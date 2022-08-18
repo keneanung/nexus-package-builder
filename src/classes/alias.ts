@@ -7,7 +7,7 @@ import { convertNexusActionArray, IdGenerator } from '../utils';
 export class Alias implements client.Alias {
   name = '';
   id: number;
-  type: 'alias' = 'alias';
+  type = 'alias' as const;
   enabled = true;
   matching: 'exact' | 'begins' | 'regexp' = 'exact';
   whole_words = true;

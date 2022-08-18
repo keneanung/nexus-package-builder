@@ -7,9 +7,9 @@ import { convertNexusActionArray, IdGenerator } from '../utils';
 export class Event implements client.Event {
   name = '';
   id: number;
-  type: 'event' = 'event';
+  type = 'event' as const;
   enabled = true;
-  evtype: 'GMCP' = 'GMCP';
+  evtype = 'GMCP' as const;
   evsubtype:
     | 'Char.Vitals'
     | 'Char.Afflictions.Add'

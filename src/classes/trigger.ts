@@ -7,7 +7,7 @@ import { convertNexusActionArray, IdGenerator } from '../utils';
 export class Trigger implements client.Trigger {
   name = '';
   id: number;
-  type: 'trigger' = 'trigger';
+  type = 'trigger' as const;
   enabled = true;
   text = '';
   matching: 'exact' | 'begins' | 'regexp' | 'substring' = 'exact';
