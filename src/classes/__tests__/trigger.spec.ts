@@ -95,6 +95,6 @@ test('Should add a action to actions if given', () => {
 
   new Trigger(partialTrigger, new IdGenerator(), '');
 
-  expect(mockedConvertFunction).toBeCalledTimes(1);
+  expect(mockedConvertFunction).toHaveBeenCalledTimes(1);
   jest.restoreAllMocks();
 });

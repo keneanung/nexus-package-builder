@@ -17,13 +17,13 @@ beforeEach(() => {
 test('Should read the given file', () => {
   readPackageDefinitionFile('/absolute/file/path');
 
-  expect(mockedFs.readFileSync).toBeCalledWith('/absolute/file/path', expect.anything());
+  expect(mockedFs.readFileSync).toHaveBeenCalledWith('/absolute/file/path', expect.anything());
 });
 
 test('Should read the file as UTF-8 to force the return of a string (compatibility with js-yaml)', () => {
   readPackageDefinitionFile('/absolute/file/path');
 
-  expect(mockedFs.readFileSync).toBeCalledWith(expect.anything(), 'utf-8');
+  expect(mockedFs.readFileSync).toHaveBeenCalledWith(expect.anything(), 'utf-8');
 });
 
 test('Should return the parsed string', () => {
@@ -46,5 +46,5 @@ test('Should hand the string read from the file to js-yaml', () => {
 
   readPackageDefinitionFile('/absolute/file/path');
 
-  expect(mockedYamlLoad).toBeCalledWith('value read from file');
+  expect(mockedYamlLoad).toHaveBeenCalledWith('value read from file');
 });

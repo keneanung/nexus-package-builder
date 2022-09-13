@@ -20,7 +20,7 @@ test('Should create output directory if it does not yet exist', () => {
 
   prepareOutputDirectory('./output/');
 
-  expect(mockedFs.mkdirSync).toBeCalled();
+  expect(mockedFs.mkdirSync).toHaveBeenCalled();
 });
 
 test('Should return readable error message if output path is a file', () => {

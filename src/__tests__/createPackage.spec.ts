@@ -47,7 +47,7 @@ test('Should print error message, if package definition file was wrong somehow',
 
   createPackage('doesNotMatter.yaml', './doesntEither');
 
-  expect(mockedConsole).toBeCalledWith('Some error about def file');
+  expect(mockedConsole).toHaveBeenCalledWith('Some error about def file');
 });
 
 test('Should return false, if output path was wrong somehow', () => {
@@ -68,13 +68,13 @@ test('Should print error message, if output path was wrong somehow', () => {
 
   createPackage('doesNotMatter.yaml', './doesntEither');
 
-  expect(mockedConsole).toBeCalledWith('Some error about package path');
+  expect(mockedConsole).toHaveBeenCalledWith('Some error about package path');
 });
 
 test('Should get the content of the package defintion file', () => {
   createPackage('doesNotMatter.yaml', './doesntEither');
 
-  expect(mockedFsFunctions.readPackageDefinitionFile).toBeCalledTimes(1);
+  expect(mockedFsFunctions.readPackageDefinitionFile).toHaveBeenCalledTimes(1);
 });
 
 test('Should write the JSON version of a package definition to disk', () => {
@@ -112,7 +112,7 @@ test('Should contain given version in the output to disk', () => {
 test('Should tell the write function to correct place to write the package to', () => {
   createPackage('./input.yaml', './packagePath');
 
-  expect(mockedFsFunctions.writePackageDefinition).toBeCalledWith(
+  expect(mockedFsFunctions.writePackageDefinition).toHaveBeenCalledWith(
     expect.anything(),
     expect.stringMatching(new RegExp('/packagePath/input.nxs$')),
   );
@@ -121,7 +121,7 @@ test('Should tell the write function to correct place to write the package to', 
 test('Should create a new package with the correct package definition file path', () => {
   createPackage('./input.yaml', './packagePath');
 
-  expect(mockedPackageConstructor).toBeCalledWith(
+  expect(mockedPackageConstructor).toHaveBeenCalledWith(
     expect.anything(),
     expect.stringMatching(new RegExp('/input.yaml$')),
     undefined,

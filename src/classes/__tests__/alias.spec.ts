@@ -106,6 +106,6 @@ test('Should add an action to items if given', () => {
 
   new Alias(partialAlias, new IdGenerator(), '');
 
-  expect(mockedConvertFunction).toBeCalledTimes(1);
+  expect(mockedConvertFunction).toHaveBeenCalledTimes(1);
   jest.restoreAllMocks();
 });
