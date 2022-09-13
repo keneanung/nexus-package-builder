@@ -94,6 +94,6 @@ test('Should add a reflex to items if given', () => {
 
   new Keybind(partialKeybind, new IdGenerator(), '');
 
-  expect(mockedConvertFunction).toBeCalledTimes(1);
+  expect(mockedConvertFunction).toHaveBeenCalledTimes(1);
   jest.restoreAllMocks();
 });

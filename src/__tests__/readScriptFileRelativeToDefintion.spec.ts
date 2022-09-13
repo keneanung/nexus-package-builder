@@ -10,7 +10,7 @@ test('Should read the file with the correct absolute path', () => {
 
   readScriptFileRelativeToDefintion('./test.js', '/absolute/path/definition.yaml');
 
-  expect(mockedFs.readFileSync).toBeCalledWith('/absolute/path/test.js', expect.anything());
+  expect(mockedFs.readFileSync).toHaveBeenCalledWith('/absolute/path/test.js', expect.anything());
 });
 
 test('Should read the file with encoding to get a string back', () => {
@@ -18,7 +18,7 @@ test('Should read the file with encoding to get a string back', () => {
 
   readScriptFileRelativeToDefintion('./test.js', '/absolute/path/definition.yaml');
 
-  expect(mockedFs.readFileSync).toBeCalledWith(expect.anything(), 'utf-8');
+  expect(mockedFs.readFileSync).toHaveBeenCalledWith(expect.anything(), 'utf-8');
 });
 
 test('Should return what it read from the file', () => {

@@ -63,6 +63,6 @@ test('Should add a reflex to items if given', () => {
 
   new Event(partialEvent, new IdGenerator(), '');
 
-  expect(mockedConvertFunction).toBeCalledTimes(1);
+  expect(mockedConvertFunction).toHaveBeenCalledTimes(1);
   jest.restoreAllMocks();
 });
