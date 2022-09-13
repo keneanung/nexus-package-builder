@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
 jest.mock('fs');
-const mockedFs = mocked(fs, true);
+const mockedFs = mocked(fs);
 let mockedYamlLoad: jest.SpyInstance<unknown, [str: string, opts?: yaml.LoadOptions]>;
 
 beforeEach(() => {
