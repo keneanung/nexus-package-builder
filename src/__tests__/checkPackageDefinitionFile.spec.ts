@@ -3,7 +3,7 @@ import { mocked } from 'jest-mock';
 import * as fs from 'fs';
 
 jest.mock('fs');
-const mockedFs = mocked(fs, true);
+const mockedFs = mocked(fs);
 
 beforeEach(() => {
   mockedFs.existsSync.mockClear();
