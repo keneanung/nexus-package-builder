@@ -45,6 +45,7 @@ version: 1.0.0
 dependencies:
   - foo
   - bar
+website: https://foo.com/bar
 items:
   # function with inline code
   - name: functionName

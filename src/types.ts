@@ -1,6 +1,7 @@
 export type PartialPackage = Omit<Partial<client.Package>, 'items'> & { items?: PartialReflex[] } & {
   version?: string;
   dependencies?: string[];
+  website?: string;
 };
 
 export type PartialReflex =

@@ -88,7 +88,7 @@ test('Should write the JSON version of a package definition to disk', () => {
   createPackage('doesNotMatter', './output');
 
   expect(mockedFsFunctions.writePackageDefinition).toHaveBeenCalledWith(
-    '{"name":"some package","enabled":true,"description":"I have a desc too","type":"group","items":[],"version":"","dependencies":[],"id":1}',
+    '{"name":"some package","enabled":true,"description":"I have a desc too","type":"group","items":[],"version":"","dependencies":[],"website":"","id":1}',
     expect.anything(),
   );
 });

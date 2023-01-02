@@ -19,6 +19,7 @@ test('Should initialize all members', () => {
     items: [],
     version: '',
     dependencies: [],
+    website: '',
   });
 });
 
@@ -89,6 +90,16 @@ test('Should overwrite the dependencies property if given', () => {
 
   expect(pkg).toMatchObject({
     dependencies: ['foo', 'bar'],
+  });
+});
+
+test('Should overwrite the website property if given', () => {
+  const partialPackage = { website: 'https://foo.com/bar' };
+
+  const pkg = new Package(partialPackage, '');
+
+  expect(pkg).toMatchObject({
+    website: 'https://foo.com/bar',
   });
 });
 

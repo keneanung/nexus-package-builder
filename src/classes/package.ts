@@ -13,6 +13,7 @@ export class Package implements client.Package {
   items: client.Reflex[] = [];
   version = '';
   dependencies: string[] = [];
+  website: string = '';
 
   /**
    * Constructs a new package instance from a partial definition.
@@ -45,6 +46,10 @@ export class Package implements client.Package {
 
     if (partialPackage.dependencies !== undefined) {
       this.dependencies = partialPackage.dependencies;
+    }
+
+    if(partialPackage.website !== undefined){
+      this.website = partialPackage.website;
     }
 
     if (partialPackage.items !== undefined) {
