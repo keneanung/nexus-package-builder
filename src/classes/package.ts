@@ -48,7 +48,7 @@ export class Package implements client.Package {
       this.dependencies = partialPackage.dependencies;
     }
 
-    if(partialPackage.website !== undefined){
+    if (partialPackage.website !== undefined) {
       this.website = partialPackage.website;
     }
 
