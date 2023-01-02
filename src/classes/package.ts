@@ -13,7 +13,7 @@ export class Package implements client.Package {
   items: client.Reflex[] = [];
   version = '';
   dependencies: string[] = [];
-  website: string = '';
+  website = '';
 
   /**
    * Constructs a new package instance from a partial definition.
