@@ -1,3 +1,5 @@
+> Repository archived. All code was moved to https://github.com/keneanung/nexus-scripts and lives on there. For more background, please read https://keneanung.github.io/nexus-scripts/blog/2023/06/23/_a_new_home.
+
 # Package builder for Iron Realms Nexus #
 
 This project is a package builder inspired by and similar in function to [`muddler`](https://github.com/demonnic/muddler) for Mudlet. It takes a package definition file that's better suited for humans than the original format and files that can be edited separately as input and creates a package file for the Nexus MUD client of Iron Realms.
